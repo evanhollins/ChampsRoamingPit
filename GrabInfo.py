@@ -80,19 +80,19 @@ url = "https://www.thebluealliance.com/api/v3/"
 # 	with open("Districts Info/%s.json" %key, 'w') as f:
 # 		json.dump(districtData, f)
 
-events = {}
-with open("events.json", 'r') as f:
-    events = json.load(f)
-
-for event in events:
-    eventData = {}
-    with open("Events Info/%s.json" %(event['key']), 'r') as f:
-        eventData = json.load(f)
-
-    try:
-        eventData['oprs'] = eventData['oprs']['oprs']
-    except:
-        pass
-
-    with open("New Events Info/%s.json" %(event['key']), 'w') as f:
-        json.dump(eventData, f)
+# events = {}
+# with open("events.json", 'r') as f:
+#     events = json.load(f)
+#
+# for event in events:
+#     eventData = {}
+#     with open("Events Info/%s.json" %(event['key']), 'r') as f:
+#         eventData = json.load(f)
+#
+#     try:
+#         eventData['oprs'] = eventData['oprs']['oprs']
+#     except:
+#         pass
+#
+#     with open("New Events Info/%s.json" %(event['key']), 'w') as f:
+#         json.dump(eventData, f)

@@ -1,0 +1,45 @@
+awardsWeight = {
+    "Regional Winners": 0,
+    "Regional Finalists": 2,
+    "Regional Engineering Inspiration Award": 4,
+    "Regional Chairman's Award": 5,
+    "Rookie All Star Award": 8,
+    "Wildcard": 9
+}
+
+countryWeight = {
+    u'Canada': 1,
+    u'Brazil': 5,
+    u'Czech Republic': 2,
+    u'USA': 1,
+    u'France': 2,
+    u'Ecuador': 5,
+    u'Kingdom': 2,
+    u'Israel': 2,
+    u'Australia': 4,
+    u'Singapore': 10,
+    u'Germany': 2,
+    u'Chile': 5,
+    u'Dominican Republic': 5,
+    u'Kazakhstan': 10,
+    u'Philippines': 10,
+    u'Spain': 2,
+    u'Netherlands': 2,
+    u'Denmark': 2,
+    u'Turkey': 6,
+    u'Morocco': 5,
+    u'Vietnam': 10,
+    u'Switzerland': 2,
+    u'Poland': 2,
+    u'Pakistan': 10,
+    u'Mexico': 5,
+    u'United Arab Emirates': 10,
+    u'India': 10,
+    u'United Kingdom': 2,
+    u'China': 10,
+    u'Colombia': 5,
+    u'Japan': 10,
+    u'Taiwan': 4,
+    u'Bosnia-Herzegovina': 10
+}
+countryWeight.setdefault(10)
