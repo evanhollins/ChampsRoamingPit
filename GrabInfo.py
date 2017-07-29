@@ -34,65 +34,67 @@ url = "https://www.thebluealliance.com/api/v3/"
 # 		json.dump(teamData, f)
 
 #  Grab info for all events
-#  eventInfo = {}
+# eventInfo = {}
 #
-# with open("events.json", 'w') as f:
-# 	eventInfo = requests.get(url + "events/2017", headers=head).json()
-# 	json.dump(eventInfo, f)
+# with open("events2016.json", 'w') as f:
+#     eventInfo = requests.get(url + "events/2016", headers=head).json()
+#     json.dump(eventInfo, f)
 #
-# events = {}
-# with open("events.json", 'r') as f:
-# 	events = json.load(f)
-#
-# for event in events:
-# 	eventData = {}
-# 	key = event['key']
-#
-# 	eventData['teams'] = requests.get(url + "event/%s/teams/keys" %key, headers=head).json()
-# 	eventData['alliances'] = requests.get(url + "event/%s/alliances" % key, headers=head).json()
-# 	eventData['oprs'] = requests.get(url + "event/%s/oprs" % key, headers=head).json()
-# 	eventData['rankings'] = requests.get(url + "event/%s/rankings" % key, headers=head).json()
-# 	eventData['matches'] = requests.get(url + "event/%s/matches" % key, headers=head).json()
-# 	eventData['awards'] = requests.get(url + "event/%s/awards" % key, headers=head).json()
-#
-# 	with open("Events Info/%s.json" %key, 'w') as f:
-# 		json.dump(eventData, f)
-
-# Grab info for all events
-# districtInfo = {}
-#
-# with open("districts.json", 'w') as f:
-# 	districtInfo = requests.get(url + "districts/2017", headers=head).json()
-# 	json.dump(districtInfo, f)
-#
-# districts = {}
-# with open("districts.json", 'r') as f:
-# 	districts = json.load(f)
-#
-# for district in districts:
-# 	districtData = {}
-# 	key = district['key']
-#
-# 	districtData['events'] = requests.get(url + "district/%s/events" %key, headers=head).json()
-# 	districtData['teams'] = requests.get(url + "district/%s/teams/keys" % key, headers=head).json()
-# 	districtData['rankings'] = requests.get(url + "district/%s/rankings" % key, headers=head).json()
-#
-# 	with open("Districts Info/%s.json" %key, 'w') as f:
-# 		json.dump(districtData, f)
-
 # events = {}
 # with open("events.json", 'r') as f:
 #     events = json.load(f)
 #
 # for event in events:
+#     print(event['key'])
 #     eventData = {}
-#     with open("Events Info/%s.json" %(event['key']), 'r') as f:
-#         eventData = json.load(f)
+#     key = event['key']
 #
-#     try:
-#         eventData['oprs'] = eventData['oprs']['oprs']
-#     except:
-#         pass
+#     eventData['teams'] = requests.get(url + "event/%s/teams/keys" %key, headers=head).json()
+#     eventData['alliances'] = requests.get(url + "event/%s/alliances" % key, headers=head).json()
+#     eventData['oprs'] = requests.get(url + "event/%s/oprs" % key, headers=head).json()
+#     eventData['rankings'] = requests.get(url + "event/%s/rankings" % key, headers=head).json()
+#     eventData['matches'] = requests.get(url + "event/%s/matches" % key, headers=head).json()
+#     eventData['awards'] = requests.get(url + "event/%s/awards" % key, headers=head).json()
 #
-#     with open("New Events Info/%s.json" %(event['key']), 'w') as f:
+#     with open("Events Info/2016/%s.json" %key, 'w') as f:
 #         json.dump(eventData, f)
+
+
+# Grab info for all events
+# districtInfo = {}
+#
+# with open("districts2016.json", 'w') as f:
+#     districtInfo = requests.get(url + "districts/2016", headers=head).json()
+#     json.dump(districtInfo, f)
+#
+# districts = {}
+# with open("districts2016.json", 'r') as f:
+#     districts = json.load(f)
+#
+# for district in districts:
+#     districtData = {}
+#     key = district['key']
+#
+#     districtData['events'] = requests.get(url + "district/%s/events" %key, headers=head).json()
+#     districtData['teams'] = requests.get(url + "district/%s/teams/keys" % key, headers=head).json()
+#     districtData['rankings'] = requests.get(url + "district/%s/rankings" % key, headers=head).json()
+#
+#     with open("Districts Info/2016/%s.json" %key, 'w') as f:
+#         json.dump(districtData, f)
+
+events = {}
+with open("events2016.json", 'r') as f:
+    events = json.load(f)
+
+for event in events:
+    eventData = {}
+    with open("Events Info/2016/%s.json" %(event['key']), 'r') as f:
+        eventData = json.load(f)
+
+    try:
+        eventData['rankings'] = eventData['rankings']['rankings']
+    except:
+        pass
+
+    with open("Events Info/2016/%s.json" %(event['key']), 'w') as f:
+        json.dump(eventData, f)

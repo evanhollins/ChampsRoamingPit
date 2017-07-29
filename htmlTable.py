@@ -16,7 +16,7 @@ preTable = """
 <th>Country</th>
 <th># of Champs</th>
 <th># of Regionals</th>
-<th>Highest Rank</th>
+<th>Highest Normalized Rank</th>
 <th>Qualified</th>
 <th>Max OPR</th>
 <th>Average OPR</th>
@@ -57,7 +57,7 @@ def htmlTable(teamFinalData):
                 <td>%i</td>
                 <td>%i</td>
                 <td>%i</td>
-                <td>%i</td>
+                <td>%s</td>
                 <td>%f</td>
                 <td>%f</td>
             </tr>\n
@@ -65,7 +65,7 @@ def htmlTable(teamFinalData):
                 teamFinalData[team]['nickname'],teamFinalData[team]['rookie_year'],
                 teamFinalData[team]['country'], teamFinalData[team]['champs'],
                 teamFinalData[team]['regionals'], teamFinalData[team]['highest_rank'],
-                teamFinalData[team]['qualified'],
+                teamFinalData[team]['qualified_string'],
                 teamFinalData[team]['max_opr'], teamFinalData[team]['average_opr'])
 
     finalString = preTable + table + postTable

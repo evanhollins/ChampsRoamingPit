@@ -3,14 +3,14 @@ from htmlTable import htmlTable
 import webbrowser
 import Weights
 
-year = 2017
+year = 2016
 
 # teams = ['frc6304', 'frc6361', 'frc3132', 'frc254', 'frc118', 'frc6434', 'frc2896', 'frc5515', 'frc3324']
 # teams = ['frc3132']
 teams = []
 events = []
 
-with open("events.json", 'r') as f:
+with open("events%i.json" %year, 'r') as f:
     eventsInfo = json.load(f)
 
 for event in eventsInfo:
@@ -53,7 +53,8 @@ for team in teams:
                     pass
                 for rank in eventData['rankings']:
                     if rank['team_key'] == team:
-                        highestRank = min([rank['rank'], highestRank])
+                        normalizedRank = (rank['rank']/float(len(eventData['teams']))) * 10
+                        highestRank = min([normalizedRank, highestRank])
                         break
         elif event['event_type'] == 3:
             champs += 1
@@ -78,16 +79,20 @@ for team in teams:
     for award in awardsInYear:
         if award['name'] in Weights.awardsWeight:
             qualifyPart = min([qualifyPart, Weights.awardsWeight[award['name']]])
+            teamsFinalData[team]['qualified_string'] = award['name']
 
-        if qualifyPart == 0 or qualifyPart == 2:
-            eventDataForAward = {}
-            with open("Events Info/%i/%s.json" %(year, award['event_key']), 'r') as f:
-                eventDataForAward = json.load(f)
+            if qualifyPart == 0 or qualifyPart == 2:
+                eventDataForAward = {}
 
-            if eventDataForAward['alliances'][0]['picks'][1] == team:
-                qualifyPart += 1
-            elif eventDataForAward['alliances'][0]['picks'][2] == team:
-                qualifyPart += 5
+                with open("Events Info/%i/%s.json" %(year, award['event_key']), 'r') as f:
+                    eventDataForAward = json.load(f)
+
+                if eventDataForAward['alliances'][0]['picks'][1] == team:
+                    qualifyPart += 1
+                    teamsFinalData[team]['qualified_string'] += " Pick 1"
+                elif eventDataForAward['alliances'][0]['picks'][2] == team:
+                    qualifyPart += 5
+                    teamsFinalData[team]['qualified_string'] += " Pick 2"
 
     # If it's 100, then it could be district.
     if qualifyPart == 100:
@@ -100,6 +105,7 @@ for team in teams:
         if teamDistrictKey == "":
             # Team is not in a district, so must be waitlist
             qualifyPart = Weights.awardsWeight['Waitlist']
+            teamsFinalData[team]['qualified_string'] = "Waitlist"
 
         else:
             teamDistrictInfo = {}
@@ -113,6 +119,8 @@ for team in teams:
             qualifyPart = int((teamDistrictRank/len(teamDistrictInfo['teams']))*10)
             if qualifyPart > 4:
                 qualifyPart = 4
+
+            teamsFinalData[team]['qualified_string'] = "District Points"
 
     teamsFinalData[team]['qualified'] = qualifyPart
 
