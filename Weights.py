@@ -1,10 +1,14 @@
 awardsWeight = {
     "Regional Winners": 0,
+    "District Championship Winners": 0,
     "Regional Finalists": 2,
+    "District Championship Finalists": 2,
     "Regional Engineering Inspiration Award": 4,
     "Regional Chairman's Award": 5,
     "Rookie All Star Award": 8,
-    "Wildcard": 9
+    "District Championship Rookie All Star Award": 8,
+    "Wildcard": 9,
+    "Waitlist": 10
 }
 
 countryWeight = {

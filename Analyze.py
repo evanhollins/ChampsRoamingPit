@@ -3,42 +3,54 @@ from htmlTable import htmlTable
 import webbrowser
 import Weights
 
+year = 2017
+
 # teams = ['frc6304', 'frc6361', 'frc3132', 'frc254', 'frc118', 'frc6434', 'frc2896', 'frc5515', 'frc3324']
 # teams = ['frc3132']
+teams = []
+events = []
 
-eventDataForTeamList = {}
-with open("Events Info/2017cmptx.json") as f:
-    eventDataForTeamList = json.load(f)
+with open("events.json", 'r') as f:
+    eventsInfo = json.load(f)
 
-teams = eventDataForTeamList['  ']
-year = 2017
+for event in eventsInfo:
+    if event['event_type'] == 3:
+        events.append(event['key'])
+
+for event in events:
+    with open("Events Info/%i/%s.json" %(year, event), 'r') as f:
+        temp = json.load(f)
+        teams += temp['teams']
 
 teamsFinalData = {}
 
 # Team Number, Nickname, Rookie Year, Country, # of Champs, # of Regionals, Regionals Countries, Max OPR, Average OPR
 
 for team in teams:
-    teamData = {}
+    teamInfo = {}
     teamsFinalData[team] = {}
     with open("Teams Info/%s.json" % team, 'r') as f:
-        teamData = json.load(f)
+        teamInfo = json.load(f)
 
-    teamsFinalData[team]['team_number'] = teamData['info']['team_number']
-    teamsFinalData[team]['nickname'] = teamData['info']['nickname']
-    teamsFinalData[team]['rookie_year'] = teamData['info']['rookie_year']
-    teamsFinalData[team]['country'] = teamData['info']['country']
+    teamsFinalData[team]['team_number'] = teamInfo['info']['team_number']
+    teamsFinalData[team]['nickname'] = teamInfo['info']['nickname']
+    teamsFinalData[team]['rookie_year'] = teamInfo['info']['rookie_year']
+    teamsFinalData[team]['country'] = teamInfo['info']['country']
 
     champs = 0
     regionals = []
     OPRS = []
     highestRank = 1000
 
-    for event in teamData['events']:
-        if event['event_type'] == 0 and event['year'] == year:
+    for event in teamInfo['events']:
+        if (event['event_type'] == 0 or event['event_type'] == 2 or event['event_type'] == 1) and event['year'] == year:
             regionals.append(event['country'])
-            with open("Events Info/%s.json" % event['key'], 'r') as f:
+            with open("Events Info/%i/%s.json" %(year, event['key']), 'r') as f:
                 eventData = json.load(f)
-                OPRS.append(eventData['oprs'][team])
+                try:
+                    OPRS.append(eventData['oprs'][team])
+                except:
+                    pass
                 for rank in eventData['rankings']:
                     if rank['team_key'] == team:
                         highestRank = min([rank['rank'], highestRank])
@@ -62,26 +74,47 @@ for team in teams:
             if award['year'] == year:
                 awardsInYear.append(award)
 
-    awardPart = 100
+    qualifyPart = 100
     for award in awardsInYear:
         if award['name'] in Weights.awardsWeight:
-            awardPart = min([awardPart, Weights.awardsWeight[award['name']]])
+            qualifyPart = min([qualifyPart, Weights.awardsWeight[award['name']]])
 
-        if awardPart == 0 or awardPart == 2:
+        if qualifyPart == 0 or qualifyPart == 2:
             eventDataForAward = {}
-            with open("Events Info/%s.json" %(award['event_key']), 'r') as f:
+            with open("Events Info/%i/%s.json" %(year, award['event_key']), 'r') as f:
                 eventDataForAward = json.load(f)
 
             if eventDataForAward['alliances'][0]['picks'][1] == team:
-                awardPart += 1
+                qualifyPart += 1
             elif eventDataForAward['alliances'][0]['picks'][2] == team:
-                awardPart += 5
+                qualifyPart += 5
 
-    # If it's still 100, must be waitlist
-    if awardPart == 100:
-        awardPart = 10
+    # If it's 100, then it could be district.
+    if qualifyPart == 100:
+        teamDistrictKey = ""
+        for i in teamInfo['districs']:
+            if i['year'] == year:
+                teamDistrictKey = i['key']
+                break
 
-    teamsFinalData[team]['qualified'] = awardPart
+        if teamDistrictKey == "":
+            # Team is not in a district, so must be waitlist
+            qualifyPart = Weights.awardsWeight['Waitlist']
+
+        else:
+            teamDistrictInfo = {}
+            with open("Districts Info/%i/%s.json" %(year, teamDistrictKey), 'r') as f:
+                teamDistrictInfo = json.load(f)
+            teamDistrictRank = 0
+            for i in teamDistrictInfo['rankings']:
+                if i['team_key'] == team:
+                    teamDistrictRank = i['rank']
+
+            qualifyPart = int((teamDistrictRank/len(teamDistrictInfo['teams']))*10)
+            if qualifyPart > 4:
+                qualifyPart = 4
+
+    teamsFinalData[team]['qualified'] = qualifyPart
 
     countryPart = Weights.countryWeight[teamsFinalData[team]['country']]
 
@@ -94,6 +127,8 @@ for team in teams:
     teamsFinalData[team]['help_number'] += teamsFinalData[team]['qualified']
     teamsFinalData[team]['help_number'] *= countryPart
 
+    if teamsFinalData[team]['help_number'] < 0:
+        teamsFinalData[team]['help_number'] = 0
 
 with open("result.html", 'w') as f:
     f.write(htmlTable(teamsFinalData))

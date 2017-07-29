@@ -1,3 +1,5 @@
+import re
+
 
 preTable = """
 <head>
@@ -67,4 +69,5 @@ def htmlTable(teamFinalData):
                 teamFinalData[team]['max_opr'], teamFinalData[team]['average_opr'])
 
     finalString = preTable + table + postTable
+    finalString = re.sub('[^\u0000-\u007f]', '', finalString)
     return finalString
