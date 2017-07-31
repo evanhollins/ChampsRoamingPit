@@ -50,6 +50,8 @@ class Master(tk.Frame):
 
 
     def start(self):
+        logger = logging.getLogger('waitress')
+        logger.setLevel(logging.INFO)
         serverProcess.start()
 
 
