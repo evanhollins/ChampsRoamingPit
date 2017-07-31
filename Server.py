@@ -2,19 +2,11 @@ import waitress
 from Application import app
 import tkinter as tk
 from tkinter import messagebox
-import threading
+import multiprocessing as mp
+import logging
 
 serverPort = 8080
 
-
-class WebServerThread(threading.Thread):
-    def __init__(self, threadID, name):
-        threading.Thread.__init__(self)
-        self.threadID = threadID
-        self.name = name
-
-    def run(self):
-        waitress.serve(app, listen="*:%i" % serverPort)
 
 class StartPage(tk.Frame):
     def __init__(self, parent, controller):
@@ -53,12 +45,12 @@ class Master(tk.Frame):
 
     def prompt(self):
         if messagebox.askyesno("Quit", "Are you sure you want to quit?"):
-            serverThread.stop()
+            serverProcess.terminate()
             self.quit()
 
 
     def start(self):
-        serverThread.start()
+        serverProcess.start()
 
 
 class ServerGUI(tk.Tk):
@@ -87,6 +79,6 @@ class ServerGUI(tk.Tk):
         frame.tkraise()
         frame.start()
 
-serverThread = WebServerThread(1, "serverThread")
+serverProcess = mp.Process(target=lambda: waitress.serve(app, port=serverPort))
 localApp = ServerGUI()
 localApp.mainloop()

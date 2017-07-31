@@ -8,7 +8,6 @@ def app(environ, start_response):
 
     if environ['PATH_INFO'] in paths.keys():
         if paths[environ['PATH_INFO']][0] == "text/html":
-            page = ""
             with open(paths[environ['PATH_INFO']][1], 'r') as f:
                 page = f.read()
 
@@ -17,7 +16,6 @@ def app(environ, start_response):
             return [page.encode()]
 
         else:
-            page = ""
             with open(paths[environ['PATH_INFO']][1], 'rb') as f:
                 page = f.read()
 
