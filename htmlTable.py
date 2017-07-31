@@ -1,6 +1,5 @@
 import re
 
-
 preTable = """
 <head>
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -40,33 +39,29 @@ postTable = """
 </body>
 """
 
-def htmlTable(teamFinalData):
+
+def htmlTable(teamsFinalData):
     finalString = ""
 
     # Make table
     table = ""
 
-    for team in teamFinalData:
+    for team in teamsFinalData:
         table += """
             <tr>
-                <td>%s</td>
-                <td>%i</td>
-                <td>%s</td>
-                <td>%s</td>
-                <td>%s</td>
-                <td>%i</td>
-                <td>%i</td>
-                <td>%i</td>
-                <td>%s</td>
-                <td>%f</td>
-                <td>%f</td>
+                <td>%(team_number)s</td>
+                <td>%(help_number)i</td>
+                <td>%(nickname)s</td>
+                <td>%(rookie_year)s</td>
+                <td>%(country)s</td>
+                <td>%(champs)i</td>
+                <td>%(regionals)i</td>
+                <td>%(highest_rank)i</td>
+                <td>%(qualified_string)s</td>
+                <td>%(max_opr)f</td>
+                <td>%(average_opr)f</td>
             </tr>\n
-        """ %(	teamFinalData[team]['team_number'], teamFinalData[team]['help_number'],
-                teamFinalData[team]['nickname'],teamFinalData[team]['rookie_year'],
-                teamFinalData[team]['country'], teamFinalData[team]['champs'],
-                teamFinalData[team]['regionals'], teamFinalData[team]['highest_rank'],
-                teamFinalData[team]['qualified_string'],
-                teamFinalData[team]['max_opr'], teamFinalData[team]['average_opr'])
+        """ % (teamsFinalData[team])
 
     finalString = preTable + table + postTable
     finalString = re.sub('[^\u0000-\u007f]', '', finalString)
