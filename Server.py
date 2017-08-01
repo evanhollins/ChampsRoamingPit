@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import messagebox
 import multiprocessing as mp
 import logging
+from Analyze import analyze
 
 serverPort = 8080
 
@@ -43,6 +44,7 @@ class Master(tk.Frame):
         quitButton = tk.Button(self, text = "Quit", command=lambda: self.prompt())
         quitButton.pack()
 
+
     def prompt(self):
         if messagebox.askyesno("Quit", "Are you sure you want to quit?"):
             serverProcess.terminate()
@@ -80,6 +82,15 @@ class ServerGUI(tk.Tk):
         frame = self.frames[cont]
         frame.tkraise()
         frame.start()
+
+    def prompt(self):
+        if messagebox.askyesno("Quit", "Are you sure you want to quit?"):
+            try:
+                serverProcess.terminate()
+            except AttributeError:
+                pass
+
+            self.quit()
 
 serverProcess = mp.Process(target=lambda: waitress.serve(app, port=serverPort))
 localApp = ServerGUI()
