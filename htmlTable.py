@@ -1,43 +1,12 @@
 import re
 
-preTable = """
-<head>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<table id="myTable" class="table tablesorter">
-<thead>
-<tr>
-<th>Team Number</th>
-<th>Help Number</th>
-<th>Name</th>
-<th>Rookie Year</th>
-<th>Country</th>
-<th># of Champs</th>
-<th># of Regionals</th>
-<th>Highest Normalized Rank</th>
-<th>Qualified</th>
-<th>Max OPR</th>
-<th>Average OPR</th>
-</tr>
-</thead>
-<tbody>
-"""
+preTable = r""
+with open("preTable.txt", 'r') as f:
+    preTable = f.read()
 
-postTable = """
-</tbody>
-<script src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() 
-    { 
-        $("#myTable").tablesorter( {sortList: [[1,-1]]} ); 
-    } 
-);
-</script>
-</body>
-"""
+postTable = r""
+with open("postTable.txt", 'r') as f:
+    postTable = f.read()
 
 
 def htmlTable(teamsFinalData):
@@ -64,5 +33,5 @@ def htmlTable(teamsFinalData):
         """ % (teamsFinalData[team])
 
     finalString = preTable + table + postTable
-    finalString = re.sub('[^\u0000-\u007f]', '', finalString)
+    finalString = re.sub(r'[^\x00-\x7F]+','', finalString)
     return finalString

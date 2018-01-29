@@ -1,0 +1,21 @@
+<head>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<table id="myTable" class="table tablesorter">
+<thead>
+<tr>
+<th>Team Number</th>
+<th>Help Number</th>
+<th>Name</th>
+<th>Rookie Year</th>
+<th>Country</th>
+<th># of Champs</th>
+<th># of Regionals</th>
+<th>Highest Normalized Rank</th>
+<th>Qualified</th>
+<th>Max OPR</th>
+<th>Average OPR</th>
+</tr>
+</thead>
+<tbody>

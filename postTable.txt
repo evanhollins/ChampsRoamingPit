@@ -1,0 +1,12 @@
+</tbody>
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() 
+    { 
+        $("#myTable").tablesorter( {sortList: [[1,-1]]} ); 
+    } 
+);
+</script>
+</body>

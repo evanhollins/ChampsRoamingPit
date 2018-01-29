@@ -41,6 +41,7 @@ def analyze(year = 2017):
         OPRS = []
         highestRank = 1000
 
+        # Calculates team OPR, normalized rank and highest rank
         for event in teamInfo['events']:
             if (event['event_type'] == 0 or event['event_type'] == 2 or event['event_type'] == 1) and event['year'] == year:
                 regionals.append(event['country'])
@@ -67,6 +68,7 @@ def analyze(year = 2017):
         teamsFinalData[team]['max_opr'] = max(OPRS)
         teamsFinalData[team]['average_opr'] = sum(OPRS) / float(len(OPRS))
 
+        # Finds how they qualified for champs (down to line 126)
         with open("Teams Info/%s.json" %team, 'r') as f:
             awards = json.load(f)['awards']
             awardsInYear = []
@@ -123,10 +125,12 @@ def analyze(year = 2017):
 
         teamsFinalData[team]['qualified'] = qualifyPart
 
+        # Adds based on country
         countryPart = Weights.countryWeight[teamsFinalData[team]['country']]
 
 
         # Full Formula (split into lines for easier reading)
+        # (highest-rank + qualified - age - number-of-champs) * country = help-number
         teamsFinalData[team]['help_number'] = 0
         teamsFinalData[team]['help_number'] -= year - teamsFinalData[team]['rookie_year']
         teamsFinalData[team]['help_number'] -= teamsFinalData[team]['champs']
