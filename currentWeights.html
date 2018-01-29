@@ -1,0 +1,230 @@
+<head>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<title>Current Formula and Weights</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-8">
+				<h2>Formula</h2>
+				<p>Help Number = (Highest Rank + Award Weight - Age - Number of Times at Champs) * Country Weight</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8">
+				<h2>Award Weights</h2>
+				<table id="table1" class="tablesorter table">
+					<thead>
+						<tr>
+							<th scope="col">Award</th>
+							<th scope="col">Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+				            <td>District Championship Rookie All Star Award</td>
+				            <td>8</td>
+				        </tr>
+				        <tr>
+				            <td>Waitlist</td>
+				            <td>10</td>
+				        </tr>
+				        <tr>
+				            <td>District Championship Finalists</td>
+				            <td>2</td>
+				        </tr>
+				        <tr>
+				            <td>Wildcard</td>
+				            <td>9</td>
+				        </tr>
+				        <tr>
+				            <td>Regional Winners</td>
+				            <td>0</td>
+				        </tr>
+				        <tr>
+				            <td>Regional Chairman's Award</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Rookie All Star Award</td>
+				            <td>8</td>
+				        </tr>
+				        <tr>
+				            <td>Regional Engineering Inspiration Award</td>
+				            <td>4</td>
+				        </tr>
+				        <tr>
+				            <td>District Championship Winners</td>
+				            <td>0</td>
+				        </tr>
+				        <tr>
+				            <td>Regional Finalists</td>
+				            <td>2</td>
+				        </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8">
+				<h2>Country Weights</h2>
+				<table id="table2" class="tablesorter table">
+					<thead>
+						<tr>
+							<th scope="col">Country</th>
+							<th scope="col">Weight</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+				            <td>Canada</td>
+				            <td>1</td>
+				        </tr>
+				        <tr>
+				            <td>Brazil</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td>Netherlands</td>
+				            <td>2</td>
+				        </tr>
+				        <tr>
+				            <td>Czech Republic</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td>USA</td>
+				            <td>1</td>
+				        </tr>
+				        <tr>
+				            <td>Denmark</td>
+				            <td>2</td>
+				        </tr>
+				        <tr>
+				            <td>Philippines</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>France</td>
+				            <td>2</td>
+				        </tr>
+				        <tr>
+				            <td>Morocco</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Vietnam</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Japan</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Switzerland</td>
+				            <td>2</td>
+				        </tr>
+				        <tr>
+				            <td>Taiwan</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td>Ecuador</td>
+				            <td>4</td>
+				        </tr>
+				        <tr>
+				            <td>Kingdom</td>
+				            <td>1</td>
+				        </tr>
+				        <tr>
+				            <td>Pakistan</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Israel</td>
+				            <td>2</td>
+				        </tr>
+				        <tr>
+				            <td>Australia</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td>Colombia</td>
+				            <td>4</td>
+				        </tr>
+				        <tr>
+				            <td>Singapore</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Turkey</td>
+				            <td>4</td>
+				        </tr>
+				        <tr>
+				            <td>Mexico</td>
+				            <td>4</td>
+				        </tr>
+				        <tr>
+				            <td>India</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Bosnia-Herzegovina</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td>United Kingdom</td>
+				            <td>1</td>
+				        </tr>
+				        <tr>
+				            <td>Germany</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td>Chile</td>
+				            <td>4</td>
+				        </tr>
+				        <tr>
+				            <td>United Arab Emirates</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>China</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Dominican Republic</td>
+				            <td>4</td>
+				        </tr>
+				        <tr>
+				            <td>Kazakhstan</td>
+				            <td>5</td>
+				        </tr>
+				        <tr>
+				            <td>Poland</td>
+				            <td>3</td>
+				        </tr>
+				        <tr>
+				            <td>Spain</td>
+				            <td>2</td>
+				        </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script>
+	    $(document).ready(function() 
+	    { 
+	        $("#table1").tablesorter( {sortList: [[1,-1]]} ); 
+	        $("#table2").tablesorter( {sortList: [[1,-1]]} ); 
+	    } 
+	);
+	</script>
+</body>
